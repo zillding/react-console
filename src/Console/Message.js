@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 
+import { SelfIcon, ErrorIcon, InfoIcon, WarnIcon } from './Icons'
+
 const messageStyle = {
   borderBottom: '1px solid rgba(34,36,38,.15)',
-  padding: '1px 18px',
+  padding: '1px 20px',
   position: 'relative'
 }
 
@@ -23,7 +25,7 @@ class Message extends Component {
       return (
         <span>
           <Icon type="error"/>
-          {message.stack}
+          {message.stack || message}
         </span>
       )
     }
@@ -91,41 +93,31 @@ Message.propTypes = {
 export default Message
 
 const iconStyle = {
-  fontSize: 'small',
+  height: 11,
   position: 'absolute',
-  left: 3,
-  top: 2
+  left: 2,
+  top: 4
 }
 
 const Icon = ({ type }) => {
-  let style = null
-
   if (type === 'self') {
-    style = Object.assign({
-      color: 'grey'
-    }, iconStyle)
-    return <i className="fa fa-angle-right" style={style}></i>
+    const selfStyle = Object.assign({}, iconStyle, {
+      height: 9,
+      top: 5
+    })
+    return <SelfIcon style={selfStyle} />
   }
 
   if (type === 'error') {
-    style = Object.assign({
-      color: 'red'
-    }, iconStyle)
-    return <i className="fa fa-times-circle" style={style}></i>
+    return <ErrorIcon style={iconStyle} />
   }
 
   if (type === 'info') {
-    style = Object.assign({
-      color: 'blue'
-    }, iconStyle)
-    return <i className="fa fa-info-circle" style={style}></i>
+    return <InfoIcon style={iconStyle} />
   }
 
   if (type === 'warn') {
-    style = Object.assign({
-      color: '#FFBE00'
-    }, iconStyle)
-    return <i className="fa fa-exclamation-triangle" style={style}></i>
+    return <WarnIcon style={iconStyle} />
   }
 
   return <span/>

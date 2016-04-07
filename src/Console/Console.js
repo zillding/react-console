@@ -6,16 +6,16 @@ import 'codemirror/mode/javascript/javascript'
 import './Console.css'
 import MessageList from './MessageList'
 
+import { PromptIcon } from './Icons'
+
 const containerStyle = {
   fontFamily: 'monospace'
 }
 
 const iconStyle = {
-  color: '#659CFF',
   float: 'left',
-  fontSize: 'small',
-  fontWeight: 'bold',
-  marginTop: 5,
+  height: 12,
+  marginTop: 6,
   marginRight: 5
 }
 
@@ -96,7 +96,7 @@ class Console extends Component {
       <div style={containerStyle}>
         <MessageList data={history} />
         <div>
-          <i className="fa fa-terminal" style={iconStyle}></i>
+          <PromptIcon style={iconStyle} />
           <CodeMirror
             ref="editor"
             value={this.state.value}

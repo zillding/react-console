@@ -14,5 +14,6 @@ Transforms are enabled for files inside `src` (except `index.js`).
 
 ## TODO
 
-+ Find a better way to deal with icons
 + Set up build process
++ Scroll to bottom
++ Object view
