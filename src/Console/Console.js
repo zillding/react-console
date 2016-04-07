@@ -63,7 +63,7 @@ class Console extends Component {
 
     try {
       this._addMessage('self', value)
-      eval(value)
+      this._addMessage('eval', eval(value))
     } catch(err) {
       this._addMessage('error', err)
     }

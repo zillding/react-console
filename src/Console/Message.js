@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
-import { SelfIcon, ErrorIcon, InfoIcon, WarnIcon } from './Icons'
+import { SelfIcon, EvalIcon, ErrorIcon, InfoIcon, WarnIcon } from './Icons'
 
 const messageStyle = {
   borderBottom: '1px solid rgba(34,36,38,.15)',
@@ -26,6 +26,15 @@ class Message extends Component {
         <span>
           <Icon type="error"/>
           {message.stack || message}
+        </span>
+      )
+    }
+
+    if (type === 'eval') {
+      return (
+        <span>
+          <Icon type="eval"/>
+          {message}
         </span>
       )
     }
@@ -106,6 +115,15 @@ const Icon = ({ type }) => {
       top: 5
     })
     return <SelfIcon style={selfStyle} />
+  }
+
+  if (type === 'eval') {
+    const evalStyle = Object.assign({}, iconStyle, {
+      height: 9,
+      top: 5,
+      left: 0
+    })
+    return <EvalIcon style={evalStyle} />
   }
 
   if (type === 'error') {
