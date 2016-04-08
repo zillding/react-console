@@ -1,13 +1,15 @@
 {
-  "name": "react-console",
-  "version": "0.1.0",
+  "name": "@zillding/react-console",
+  "version": "0.0.0",
   "description": "A developer console like react component.",
   "main": "dist/bundle.js",
+  "files": ["dist"],
   "scripts": {
     "clean": "rimraf dist",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
-    "start": "node devServer.js"
+    "start": "node devServer.js",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
