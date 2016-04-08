@@ -12,6 +12,7 @@ module.exports = {
     publicPath: '/dist/',
     libraryTarget: 'commonjs2'
   },
+  externals: ['react'],
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({

@@ -6,7 +6,26 @@ It can be placed anywhere in the page. The position of the compoennt is 'absolut
 
 So it needs a parent dom node to determine its position and size.
 
-## Installation
+## Dependencies
+
++ react
+
+This need to be installed in the containing project
+
+## Get Started
+
+```bash
+npm install --save @zillding/react-console
+```
+
+```js
+import Console from '@zillding/react-console'
+
+// Drop the component anywhere
+<Console/>
+```
+
+## Development
 
 ```bash
 git clone https://github.com/zillding/react-console.git
