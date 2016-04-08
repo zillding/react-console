@@ -1,9 +1,11 @@
 {
   "name": "@zillding/react-console",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A developer console like react component.",
   "main": "dist/bundle.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "clean": "rimraf dist",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
