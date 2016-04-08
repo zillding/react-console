@@ -4,12 +4,13 @@ var webpack = require('webpack');
 module.exports = {
   devtool: 'source-map',
   entry: [
-    './src/index'
+    './src/Console.js'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/dist/',
+    libraryTarget: 'commonjs2'
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),

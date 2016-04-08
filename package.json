@@ -2,6 +2,7 @@
   "name": "react-console",
   "version": "0.1.0",
   "description": "A developer console like react component.",
+  "main": "dist/bundle.js",
   "scripts": {
     "clean": "rimraf dist",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
@@ -38,6 +39,7 @@
   "dependencies": {
     "react": "^0.14.7",
     "react-codemirror": "^0.2.5",
-    "react-dom": "^0.14.7"
+    "react-dom": "^0.14.7",
+    "react-object-inspector": "^0.2.1"
   }
 }
