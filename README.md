@@ -14,5 +14,4 @@ Transforms are enabled for files inside `src` (except `index.js`).
 
 ## TODO
 
-+ Set up build process
-+ Scroll to bottom
++ Add typing history

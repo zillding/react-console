@@ -10,7 +10,14 @@ import { PromptIcon } from './Icons'
 
 const containerStyle = {
   fontFamily: 'monospace',
-  fontSize: 'small'
+  fontSize: 'small',
+  overflow: 'auto',
+  padding: 2,
+  position: 'absolute',
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0
 }
 
 const iconStyle = {
@@ -41,6 +48,15 @@ class Console extends Component {
       }
     })
     this._setUp()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.history.length === prevState.history.length) {
+      return
+    }
+
+    // scroll to bottom
+    this.refs.input.scrollIntoView()
   }
 
   _addMessage(type, message) {
@@ -95,13 +111,15 @@ class Console extends Component {
 
     return (
       <div style={containerStyle}>
-        <MessageList data={history} />
         <div>
-          <PromptIcon style={iconStyle} />
-          <CodeMirror
-            ref="editor"
-            value={this.state.value}
-            onChange={this._handleChange} />
+          <MessageList data={history} />
+          <div ref="input">
+            <PromptIcon style={iconStyle} />
+            <CodeMirror
+              ref="editor"
+              value={this.state.value}
+              onChange={this._handleChange} />
+          </div>
         </div>
       </div>
     )
