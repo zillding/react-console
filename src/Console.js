@@ -32,7 +32,9 @@ class Console extends Component {
     super(props)
     this.state = {
       value: '',
-      history: []
+      data: [],
+      history: [],
+      index: 0
     }
     this._handleChange = this._handleChange.bind(this)
   }
@@ -40,6 +42,15 @@ class Console extends Component {
   componentDidMount() {
     this._editor = this.refs.editor.getCodeMirror()
     this._editor.on('keydown', (editor, e) => {
+      if (e.keyCode === 38 || e.keyCode === 40) {
+        // up or down is pressed, go to prev or next message
+        const index = e.keyCode === 38 ? this._getPrevIndex() : this._getNextIndex()
+        this.setState({
+          index,
+          value: this.state.history[index] || ''
+        })
+      }
+
       if (e.keyCode === 13) {
         // enter is pressed, evaluate expression
         this._eval()
@@ -47,11 +58,12 @@ class Console extends Component {
         this.setState({ value: '' })
       }
     })
+    // override console methods
     this._setUp()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.history.length === prevState.history.length) {
+    if (this.state.data.length === prevState.data.length) {
       return
     }
 
@@ -59,21 +71,35 @@ class Console extends Component {
     this.refs.input.scrollIntoView()
   }
 
-  _addMessage(type, message) {
+  _addHistory(message) {
     this.setState({
+      index: this.state.index + 1,
       history: [
         ...this.state.history,
+        message
+      ]
+    })
+  }
+
+  _addMessage(type, message) {
+    this.setState({
+      data: [
+        ...this.state.data,
         { type, message }
       ]
     })
   }
 
   _clearMessages() {
-    this.setState({ history: [] })
+    this.setState({ data: [] })
   }
 
   _eval() {
     const { value } = this.state
+    if (!value) return
+
+    this._addHistory(value)
+
     if (value.trim() === 'clear') {
       return this._clearMessages()
     }
@@ -84,6 +110,16 @@ class Console extends Component {
     } catch(err) {
       this._addMessage('error', err)
     }
+  }
+
+  _getNextIndex() {
+    const { index, history } = this.state
+    return index < history.length ? index + 1 : index
+  }
+
+  _getPrevIndex() {
+    const { index } = this.state
+    return index === 0 ? 0 : index - 1
   }
 
   _handleChange(value) {
@@ -107,12 +143,12 @@ class Console extends Component {
     const options = {
       mode: 'javascript'
     }
-    const { history } = this.state
+    const { data } = this.state
 
     return (
       <div style={containerStyle}>
         <div>
-          <MessageList data={history} />
+          <MessageList data={data} />
           <div ref="input">
             <PromptIcon style={iconStyle} />
             <CodeMirror

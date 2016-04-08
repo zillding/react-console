@@ -5,6 +5,7 @@ import { SelfIcon, EvalIcon, ErrorIcon, InfoIcon, WarnIcon } from './Icons'
 
 const messageStyle = {
   borderBottom: '1px solid rgba(34,36,38,.06)',
+  minHeight: 14,
   padding: '1.5px 20px',
   position: 'relative'
 }
