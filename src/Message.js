@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react'
+import ObjectInspector from 'react-object-inspector'
 
 import { SelfIcon, EvalIcon, ErrorIcon, InfoIcon, WarnIcon } from './Icons'
 
 const messageStyle = {
-  borderBottom: '1px solid rgba(34,36,38,.15)',
-  padding: '1px 20px',
+  borderBottom: '1px solid rgba(34,36,38,.06)',
+  padding: '1.5px 20px',
   position: 'relative'
 }
 
@@ -25,7 +26,7 @@ class Message extends Component {
       return (
         <span>
           <Icon type="error"/>
-          {message.stack || message}
+          <ObjectInspector data={message.stack || message} />
         </span>
       )
     }
@@ -34,13 +35,13 @@ class Message extends Component {
       return (
         <span>
           <Icon type="eval"/>
-          {message}
+          <ObjectInspector data={message} />
         </span>
       )
     }
 
     const content = message.map((s, index) => (
-      <span key={index}>{s}</span>
+      <span key={index}>{parseConent(s)}</span>
     ))
 
     if (type === 'info') {
@@ -83,6 +84,18 @@ class Message extends Component {
       }, messageStyle)
     }
 
+    if (type === 'self') {
+      return Object.assign({}, messageStyle, {
+        borderBottom: 'none'
+      })
+    }
+
+    if (type === 'eval') {
+      return Object.assign({}, messageStyle, {
+        paddingTop: 2
+      })
+    }
+
     return messageStyle
   }
 
@@ -120,7 +133,7 @@ const Icon = ({ type }) => {
   if (type === 'eval') {
     const evalStyle = Object.assign({}, iconStyle, {
       height: 9,
-      top: 5,
+      top: 4,
       left: 0
     })
     return <EvalIcon style={evalStyle} />
@@ -139,4 +152,12 @@ const Icon = ({ type }) => {
   }
 
   return <span/>
+}
+
+function parseConent(content) {
+  if (typeof content === 'string') {
+    return content
+  }
+
+  return <ObjectInspector data={content} />
 }

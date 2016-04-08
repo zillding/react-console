@@ -9,7 +9,8 @@ import MessageList from './MessageList'
 import { PromptIcon } from './Icons'
 
 const containerStyle = {
-  fontFamily: 'monospace'
+  fontFamily: 'monospace',
+  fontSize: 'small'
 }
 
 const iconStyle = {

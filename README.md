@@ -16,4 +16,3 @@ Transforms are enabled for files inside `src` (except `index.js`).
 
 + Set up build process
 + Scroll to bottom
-+ Object view
