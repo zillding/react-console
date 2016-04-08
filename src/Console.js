@@ -127,7 +127,7 @@ class Console extends Component {
   }
 
   _setUp() {
-    const types = ['log', 'info', 'error', 'warn']
+    const types = ['log', 'info', 'error', 'warn', 'debug']
 
     types.forEach(type => {
       const proxyKey = `oooo-${type}`

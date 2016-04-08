@@ -63,6 +63,10 @@ class Message extends Component {
       )
     }
 
+    if (type === 'debug') {
+      return <span style={{color: 'blue'}}>{content}</span>
+    }
+
     return (
       <span>{content}</span>
     )
