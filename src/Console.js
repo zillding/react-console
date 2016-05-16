@@ -22,9 +22,10 @@ const containerStyle = {
 
 const iconStyle = {
   float: 'left',
-  height: 12,
-  marginTop: 6,
-  marginRight: 5
+  height: 9,
+  marginTop: 5,
+  marginLeft: 7,
+  marginRight: 1,
 }
 
 class Console extends Component {

@@ -89,12 +89,6 @@ class Message extends Component {
       }, messageStyle)
     }
 
-    if (type === 'self') {
-      return Object.assign({}, messageStyle, {
-        borderBottom: 'none'
-      })
-    }
-
     if (type === 'eval') {
       return Object.assign({}, messageStyle, {
         paddingTop: 2
@@ -120,26 +114,27 @@ Message.propTypes = {
 export default Message
 
 const iconStyle = {
-  height: 11,
+  height: 9.5,
   position: 'absolute',
-  left: 2,
-  top: 4
+  left: 4,
+  top: 4,
 }
 
 const Icon = ({ type }) => {
   if (type === 'self') {
     const selfStyle = Object.assign({}, iconStyle, {
-      height: 9,
-      top: 5
+      height: 8,
+      left: 6,
+      top: 5,
     })
     return <SelfIcon style={selfStyle} />
   }
 
   if (type === 'eval') {
     const evalStyle = Object.assign({}, iconStyle, {
-      height: 9,
-      top: 4,
-      left: 0
+      height: 8,
+      left: 6,
+      top: 5,
     })
     return <EvalIcon style={evalStyle} />
   }
