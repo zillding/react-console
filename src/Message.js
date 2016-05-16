@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import ObjectInspector from 'react-object-inspector'
+import Highlight from 'react-highlight'
+import 'highlight.js/styles/default.css'
 
 import { SelfIcon, EvalIcon, ErrorIcon, InfoIcon, WarnIcon } from './Icons'
 
@@ -18,7 +20,9 @@ class Message extends Component {
       return (
         <span>
           <Icon type="self"/>
-          {message}
+          <Highlight className="javascript">
+            {message}
+          </Highlight>
         </span>
       )
     }

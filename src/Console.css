@@ -5,3 +5,12 @@
 .CodeMirror-lines {
   padding: 2px 0;
 }
+
+pre {
+  margin: 0;
+}
+
+code.hljs {
+  background: none;
+  padding: 0;
+}

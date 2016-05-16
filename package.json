@@ -33,6 +33,7 @@
     "react": "^0.14.7",
     "react-codemirror": "^0.2.5",
     "react-dom": "^0.14.7",
+    "react-highlight": "^0.8.0",
     "react-object-inspector": "^0.2.1",
     "rimraf": "^2.4.3",
     "style-loader": "^0.13.1",
