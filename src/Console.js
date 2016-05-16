@@ -36,6 +36,7 @@ class Console extends Component {
       history: [],
       index: 0
     }
+    this._oldConsole = {}
     this._handleChange = this._handleChange.bind(this)
   }
 
@@ -112,6 +113,20 @@ class Console extends Component {
     }
   }
 
+  _generateNewMethod(method) {
+    return (...args) => {
+      // Call the old method
+      this._oldConsole[method].apply(console, args)
+
+      // Supported methods
+      if (['log', 'info', 'error', 'warn', 'debug'].indexOf(method) === -1) {
+        return
+      }
+
+      this._addMessage(method, args)
+    }
+  }
+
   _getNextIndex() {
     const { index, history } = this.state
     return index < history.length ? index + 1 : index
@@ -126,17 +141,15 @@ class Console extends Component {
     this.setState({ value })
   }
 
-  _setUp() {
-    const types = ['log', 'info', 'error', 'warn', 'debug']
+  _overrideMethod(method) {
+    this._oldConsole[method] = console[method]
+    console[method] = this._generateNewMethod(method)
+  }
 
-    types.forEach(type => {
-      const proxyKey = `oooo-${type}`
-      console[proxyKey] = console[type]
-      console[type] = (...args) => {
-        this._addMessage(type, args)
-        console[proxyKey](...args)
-      }
-    })
+  _setUp() {
+    for (let method in console) {
+      this._overrideMethod(method)
+    }
   }
 
   render() {
