@@ -1,6 +1,6 @@
 {
   "name": "@zillding/react-console",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A developer console like react component.",
   "main": "dist/bundle.js",
   "files": [
