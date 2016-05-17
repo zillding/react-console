@@ -30,6 +30,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "cross-env": "^1.0.7",
     "css-loader": "^0.23.1",
+    "debounce": "^1.0.0",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.13.3",
     "react": "^0.14.7",

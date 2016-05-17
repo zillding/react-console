@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { findDOMNode } from 'react-dom'
+import debounce from 'debounce'
 
 import MessageList from './MessageList'
 import Input from './Input'
@@ -12,6 +13,9 @@ class Console extends Component {
     }
     this._addMessage = this._addMessage.bind(this)
     this._clearMessages = this._clearMessages.bind(this)
+
+    this._buffer = []
+    this._updateData = debounce(this._updateData, 100)
   }
 
   componentDidMount() {
@@ -28,12 +32,8 @@ class Console extends Component {
   }
 
   _addMessage(type, message) {
-    this.setState({
-      data: [
-        ...this.state.data,
-        { type, message }
-      ]
-    })
+    this._buffer.push({ type, message })
+    this._updateData()
   }
 
   _clearMessages() {
@@ -63,6 +63,17 @@ class Console extends Component {
     this._oldConsole = {}
     for (let method in console) {
       this._overrideMethod(method)
+    }
+  }
+
+  _updateData() {
+    if (this._buffer.length > 0) {
+      const data = [
+        ...this.state.data,
+        ...this._buffer
+      ]
+      this.setState({ data })
+      this._buffer = []
     }
   }
 
