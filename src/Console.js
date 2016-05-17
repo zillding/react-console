@@ -1,12 +1,9 @@
 import React, { Component, PropTypes } from 'react'
-import CodeMirror from 'react-codemirror'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/mode/javascript/javascript'
+import { findDOMNode } from 'react-dom'
 
 import Styles from './Styles'
 import MessageList from './MessageList'
-
-import { PromptIcon } from './Icons'
+import Input from './Input'
 
 const containerStyle = {
   fontFamily: 'monospace',
@@ -20,46 +17,17 @@ const containerStyle = {
   right: 0
 }
 
-const iconStyle = {
-  float: 'left',
-  height: 9,
-  marginTop: 5,
-  marginLeft: 7,
-  marginRight: 1,
-}
-
 class Console extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: '',
       data: [],
-      history: [],
-      index: 0
     }
-    this._oldConsole = {}
-    this._handleChange = this._handleChange.bind(this)
+    this._addMessage = this._addMessage.bind(this)
+    this._clearMessages = this._clearMessages.bind(this)
   }
 
   componentDidMount() {
-    this._editor = this.refs.editor.getCodeMirror()
-    this._editor.on('keydown', (editor, e) => {
-      if (e.keyCode === 38 || e.keyCode === 40) {
-        // up or down is pressed, go to prev or next message
-        const index = e.keyCode === 38 ? this._getPrevIndex() : this._getNextIndex()
-        this.setState({
-          index,
-          value: this.state.history[index] || ''
-        })
-      }
-
-      if (e.keyCode === 13) {
-        // enter is pressed, evaluate expression
-        e.preventDefault()
-        this._eval()
-      }
-    })
-    // override console methods
     this._setUp()
   }
 
@@ -69,17 +37,7 @@ class Console extends Component {
     }
 
     // scroll to bottom
-    this.refs.input.scrollIntoView()
-  }
-
-  _addHistory(message) {
-    this.setState({
-      index: this.state.history.length + 1,
-      history: [
-        ...this.state.history,
-        message
-      ]
-    })
+    findDOMNode(this.refs.input).scrollIntoView()
   }
 
   _addMessage(type, message) {
@@ -93,26 +51,6 @@ class Console extends Component {
 
   _clearMessages() {
     this.setState({ data: [] })
-  }
-
-  _eval() {
-    const { value } = this.state
-    const text = value.trim()
-    if (!text) return
-
-    this._addHistory(text)
-    this.setState({ value: '' })
-
-    if (text === 'clear') {
-      return this._clearMessages()
-    }
-
-    try {
-      this._addMessage('self', text)
-      this._addMessage('eval', eval.call(window, text))
-    } catch(err) {
-      this._addMessage('error', err)
-    }
   }
 
   _generateNewMethod(method) {
@@ -129,26 +67,13 @@ class Console extends Component {
     }
   }
 
-  _getNextIndex() {
-    const { index, history } = this.state
-    return index < history.length ? index + 1 : index
-  }
-
-  _getPrevIndex() {
-    const { index } = this.state
-    return index === 0 ? 0 : index - 1
-  }
-
-  _handleChange(value) {
-    this.setState({ value })
-  }
-
   _overrideMethod(method) {
     this._oldConsole[method] = console[method]
     console[method] = this._generateNewMethod(method)
   }
 
   _setUp() {
+    this._oldConsole = {}
     for (let method in console) {
       this._overrideMethod(method)
     }
@@ -160,13 +85,10 @@ class Console extends Component {
         <Styles/>
         <div>
           <MessageList data={this.state.data} />
-          <div ref="input">
-            <PromptIcon style={iconStyle} />
-            <CodeMirror
-              ref="editor"
-              value={this.state.value}
-              onChange={this._handleChange} />
-          </div>
+          <Input
+            ref="input"
+            addMessage={this._addMessage}
+            clearMessages={this._clearMessages} />
         </div>
       </div>
     )
