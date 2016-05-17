@@ -55,9 +55,8 @@ class Console extends Component {
 
       if (e.keyCode === 13) {
         // enter is pressed, evaluate expression
-        this._eval()
         e.preventDefault()
-        this.setState({ value: '' })
+        this._eval()
       }
     })
     // override console methods
@@ -98,17 +97,19 @@ class Console extends Component {
 
   _eval() {
     const { value } = this.state
-    if (!value) return
+    const text = value.trim()
+    if (!text) return
 
-    this._addHistory(value)
+    this._addHistory(text)
+    this.setState({ value: '' })
 
-    if (value.trim() === 'clear') {
+    if (text === 'clear') {
       return this._clearMessages()
     }
 
     try {
-      this._addMessage('self', value)
-      this._addMessage('eval', eval(value))
+      this._addMessage('self', text)
+      this._addMessage('eval', eval.call(window, text))
     } catch(err) {
       this._addMessage('error', err)
     }
