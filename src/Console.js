@@ -75,7 +75,7 @@ class Console extends Component {
 
   _addHistory(message) {
     this.setState({
-      index: this.state.index + 1,
+      index: this.state.history.length + 1,
       history: [
         ...this.state.history,
         message
@@ -154,15 +154,10 @@ class Console extends Component {
   }
 
   render() {
-    const options = {
-      mode: 'javascript'
-    }
-    const { data } = this.state
-
     return (
       <div style={containerStyle}>
         <div>
-          <MessageList data={data} />
+          <MessageList data={this.state.data} />
           <div ref="input">
             <PromptIcon style={iconStyle} />
             <CodeMirror
