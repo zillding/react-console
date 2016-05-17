@@ -1,21 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { findDOMNode } from 'react-dom'
 
-import Styles from './Styles'
 import MessageList from './MessageList'
 import Input from './Input'
-
-const containerStyle = {
-  fontFamily: 'monospace',
-  fontSize: 'small',
-  overflow: 'auto',
-  padding: 2,
-  position: 'absolute',
-  top: 0,
-  bottom: 0,
-  left: 0,
-  right: 0
-}
 
 class Console extends Component {
   constructor(props) {
@@ -81,15 +68,12 @@ class Console extends Component {
 
   render() {
     return (
-      <div style={containerStyle}>
-        <Styles/>
-        <div>
-          <MessageList data={this.state.data} />
-          <Input
-            ref="input"
-            addMessage={this._addMessage}
-            clearMessages={this._clearMessages} />
-        </div>
+      <div>
+        <MessageList data={this.state.data} />
+        <Input
+          ref="input"
+          addMessage={this._addMessage}
+          clearMessages={this._clearMessages} />
       </div>
     )
   }
