@@ -3,7 +3,7 @@ import CodeMirror from 'react-codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/javascript/javascript'
 
-import './Console.css'
+import Styles from './Styles'
 import MessageList from './MessageList'
 
 import { PromptIcon } from './Icons'
@@ -156,6 +156,7 @@ class Console extends Component {
   render() {
     return (
       <div style={containerStyle}>
+        <Styles/>
         <div>
           <MessageList data={this.state.data} />
           <div ref="input">
