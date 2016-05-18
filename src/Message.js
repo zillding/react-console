@@ -2,14 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import ObjectInspector from 'react-object-inspector'
 import Highlight from 'react-highlight'
 
-import { SelfIcon, EvalIcon, ErrorIcon, InfoIcon, WarnIcon } from './Icons'
-
-const messageStyle = {
-  borderBottom: '1px solid rgba(34,36,38,.06)',
-  minHeight: 14,
-  padding: '1.5px 20px',
-  position: 'relative'
-}
+import Icon from './Icon'
 
 class Message extends Component {
   _getContent() {
@@ -77,33 +70,27 @@ class Message extends Component {
 
   _getStyle() {
     const { type } = this.props.data
-
-    if (type === 'warn') {
-      return Object.assign({
-        backgroundColor: '#FFFAE2',
-        color: '#A9782C'
-      }, messageStyle)
+    switch (type) {
+      case 'warn':
+        return {
+          backgroundColor: '#FFFAE2',
+          color: '#A9782C'
+        }
+      case 'error':
+        return {
+          backgroundColor: '#FFDFDF',
+          color: 'red'
+        }
+      case 'eval':
+        return { paddingTop: 2 }
+      default:
+        return {}
     }
-
-    if (type === 'error') {
-      return Object.assign({
-        backgroundColor: '#FFDFDF',
-        color: 'red'
-      }, messageStyle)
-    }
-
-    if (type === 'eval') {
-      return Object.assign({}, messageStyle, {
-        paddingTop: 2
-      })
-    }
-
-    return messageStyle
   }
 
   render() {
     return (
-      <div style={this._getStyle()}>
+      <div className="line" style={this._getStyle()}>
         {this._getContent()}
       </div>
     )
@@ -115,47 +102,6 @@ Message.propTypes = {
 }
 
 export default Message
-
-const iconStyle = {
-  height: 9.5,
-  position: 'absolute',
-  left: 4,
-  top: 4,
-}
-
-const Icon = ({ type }) => {
-  if (type === 'self') {
-    const selfStyle = Object.assign({}, iconStyle, {
-      height: 8,
-      left: 6,
-      top: 5,
-    })
-    return <SelfIcon style={selfStyle} />
-  }
-
-  if (type === 'eval') {
-    const evalStyle = Object.assign({}, iconStyle, {
-      height: 8,
-      left: 6,
-      top: 5,
-    })
-    return <EvalIcon style={evalStyle} />
-  }
-
-  if (type === 'error') {
-    return <ErrorIcon style={iconStyle} />
-  }
-
-  if (type === 'info') {
-    return <InfoIcon style={iconStyle} />
-  }
-
-  if (type === 'warn') {
-    return <WarnIcon style={iconStyle} />
-  }
-
-  return <span/>
-}
 
 function parseConent(content) {
   if (typeof content === 'string') {

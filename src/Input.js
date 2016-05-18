@@ -3,14 +3,11 @@ import CodeMirror from 'react-codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/javascript/javascript'
 
-import { PromptIcon } from './Icons'
+import Icon from './Icon'
 
-const iconStyle = {
-  float: 'left',
-  height: 9,
-  marginTop: 5,
-  marginLeft: 7,
-  marginRight: 1,
+const style = {
+  borderBottom: 'none',
+  paddingLeft: 17,
 }
 
 export default class Input extends Component {
@@ -91,8 +88,10 @@ export default class Input extends Component {
 
   render() {
     return (
-      <div>
-        <PromptIcon style={iconStyle} />
+      <div
+        className="line"
+        style={style}>
+        <Icon type="prompt"/>
         <CodeMirror
           ref="editor"
           value={this.state.value}

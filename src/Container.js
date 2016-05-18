@@ -16,7 +16,7 @@ const style = {
 }
 
 const Container = () => (
-  <div style={style}>
+  <div className="react-console" style={style}>
     <Styles/>
     <Console/>
   </div>
