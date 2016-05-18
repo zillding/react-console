@@ -1,13 +1,9 @@
 import React, { Component, PropTypes } from 'react'
-import CodeMirror from 'react-codemirror'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/mode/javascript/javascript'
 
 import Icon from './Icon'
 
 const style = {
   borderBottom: 'none',
-  paddingLeft: 17,
 }
 
 export default class Input extends Component {
@@ -19,26 +15,7 @@ export default class Input extends Component {
       index: 0,
     }
     this._handleChange = this._handleChange.bind(this)
-  }
-
-  componentDidMount() {
-    this._editor = this.refs.editor.getCodeMirror()
-    this._editor.on('keydown', (editor, e) => {
-      if (e.keyCode === 38 || e.keyCode === 40) {
-        // up or down is pressed, go to prev or next message
-        const index = e.keyCode === 38 ? this._getPrevIndex() : this._getNextIndex()
-        this.setState({
-          index,
-          value: this.state.history[index] || ''
-        })
-      }
-
-      if (e.keyCode === 13) {
-        // enter is pressed, evaluate expression
-        e.preventDefault()
-        this._eval()
-      }
-    })
+    this._handleKeyPress = this._handleKeyPress.bind(this)
   }
 
   _addHistory(message) {
@@ -82,8 +59,25 @@ export default class Input extends Component {
     return index === 0 ? 0 : index - 1
   }
 
-  _handleChange(value) {
-    this.setState({ value })
+  _handleChange(e) {
+    this.setState({ value: e.target.value })
+  }
+
+  _handleKeyPress(e) {
+    if (e.keyCode === 38 || e.keyCode === 40) {
+      // up or down is pressed, go to prev or next message
+      const index = e.keyCode === 38 ? this._getPrevIndex() : this._getNextIndex()
+      this.setState({
+        index,
+        value: this.state.history[index] || ''
+      })
+    }
+
+    if (e.keyCode === 13) {
+      // enter is pressed, evaluate expression
+      e.preventDefault()
+      this._eval()
+    }
   }
 
   render() {
@@ -92,10 +86,10 @@ export default class Input extends Component {
         className="line"
         style={style}>
         <Icon type="prompt"/>
-        <CodeMirror
-          ref="editor"
+        <input
           value={this.state.value}
-          onChange={this._handleChange} />
+          onChange={this._handleChange}
+          onKeyDown={this._handleKeyPress} />
       </div>
     )
   }

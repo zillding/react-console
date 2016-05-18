@@ -40,6 +40,16 @@ const Styles = () => (
           top: 3.5px;
           left: 2px;
         }
+
+        .react-console input {
+          font-family: monospace;
+          border: none;
+          width: 100%;
+        }
+
+        .react-console input:focus {
+          outline: none;
+        }
       `
     }]} />
 )
