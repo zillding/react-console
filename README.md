@@ -41,10 +41,9 @@ git clone https://github.com/zillding/react-console.git
 cd react-console
 npm install
 npm start
-open http://localhost:3000
 ```
 
-Transforms are enabled for files inside `src` (except `index.js`).
+Storybook is started on port 9010.
 
 ## Supported console API
 
