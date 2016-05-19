@@ -26,6 +26,14 @@ import Console from '@zillding/react-console'
 <Console/>
 ```
 
+## Properties
+
++ **noFontawesome**: boolean
+
+  This component load css from [cdnjs](https://cdnjs.com/) dynamically. If containing app already
+loads [fontawesome](http://fontawesome.io/get-started/), then pass `true` to this property to prevent
+it from loading.
+
 ## Development
 
 ```bash

@@ -15,9 +15,9 @@ const style = {
   right: 0
 }
 
-const Container = () => (
+const Container = ({ noFontawesome }) => (
   <div className="react-console" style={style}>
-    <Styles/>
+    <Styles noFontawesome={noFontawesome} />
     <Console/>
   </div>
 )
