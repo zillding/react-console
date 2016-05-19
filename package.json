@@ -2,6 +2,11 @@
   "name": "@zillding/react-console",
   "version": "0.0.3",
   "description": "A developer console like react component.",
+  "keywords": [
+    "react",
+    "react-component",
+    "console"
+  ],
   "main": "dist/bundle.js",
   "files": [
     "dist"
