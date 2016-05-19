@@ -1,6 +1,6 @@
 {
   "name": "@zillding/react-console",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A developer console like react component.",
   "keywords": [
     "react",
