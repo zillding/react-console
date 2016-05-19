@@ -34,6 +34,10 @@ import Console from '@zillding/react-console'
 loads [fontawesome](http://fontawesome.io/get-started/), then pass `true` to this property to prevent
 it from loading.
 
++ **style**: object
+
+  Custom style to the container.
+
 ## Development
 
 ```bash
