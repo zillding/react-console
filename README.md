@@ -1,4 +1,3 @@
-[![Stories in Ready](https://badge.waffle.io/zillding/react-console.png?label=ready&title=Ready)](https://waffle.io/zillding/react-console)
 # React Console
 
 A react component that hijacks the developer console
